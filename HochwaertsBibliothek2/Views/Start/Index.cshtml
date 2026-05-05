@@ -1,0 +1,66 @@
+﻿@model IEnumerable<HochwaertsBibliothek2.Models.Exemplar>
+
+@{
+    ViewData["Title"] = "Startseite";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-1 mb-2">Hochwärts-Bibliothek</h1>
+    <h2 class="display-6 mb-5">Herzlich Willkommen</h2>
+
+    <img src="~/images/wappen.png" width="260" />
+
+    <p class="my-4">
+        „nicht nur was für Leseratten und Bücherwürmer – auch Buchstabiereulen und Vorlesebären kommen hier auf ihre Kosten.“
+    </p>
+</div>
+
+<div class="p-4 rounded-4 shadow-sm bg-dark bg-opacity-10 mt-5">
+
+    <p class="mb-4 fw-bold">Verkaufbare Bücher</p>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Aktuell sind keine Bücher als Verkaufbar markiert.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border border-1 rounded-4">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Titel</th>
+                        <th>Autor</th>
+                        <th>Beschädigung</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var exemplar in Model)
+                    {
+                        <tr>
+                            <td>@exemplar.Buch?.Titel</td>
+                            <td>@exemplar.Buch?.Autor</td>
+                            <td>
+                                <span class="badge bg-danger">
+                                    @exemplar.Beschädigung
+                                </span>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-secondary"
+                                   asp-controller="Exemplare"
+                                   asp-action="Details"
+                                   asp-route-id="@exemplar.ExemplarId">
+                                    Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

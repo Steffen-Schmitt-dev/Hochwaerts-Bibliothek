@@ -1,0 +1,151 @@
+﻿@model IEnumerable<HochwaertsBibliothek2.Models.Exemplar>
+@{
+    ViewData["Title"] = "Exemplare";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Exemplare</h1>
+    <a class="btn btn-secondary" asp-controller="Buecher" asp-action="Index">Zu den Büchern</a>
+</div>
+
+<div class="p-4 rounded-4 shadow-sm bg-dark bg-opacity-10 mt-5">
+    <div class="card shadow-sm border border-1 rounded-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Exemplar</th>
+                        <th>Buch</th>
+                        <th>Status</th>
+                        <th>Beschädigung</th>
+                        <th class="text-end">Aktionen</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var exemplar in Model)
+                    {
+                        <tr>
+                            <td>#@exemplar.ExemplarId</td>
+                            <td>@exemplar.Buch?.Titel</td>
+
+                            <td>
+                                @switch (exemplar.Status)
+                                {
+                                    case VerleihStatus.Verkaufbar:
+                                        <span class="badge hw-badge bg-danger">Verkaufbar</span>
+                                        break;
+
+                                    case VerleihStatus.Überprüfung:
+                                        <span class="badge hw-badge bg-warning text-dark">Überprüfung</span>
+                                        break;
+
+                                    case VerleihStatus.Verliehen:
+                                        <span class="badge hw-badge bg-primary">Verliehen</span>
+                                        break;
+
+                                    case VerleihStatus.Verschollen:
+                                        <span class="badge hw-badge bg-dark">Verschollen</span>
+                                        break;
+
+                                    case VerleihStatus.Abschreibbar:
+                                        <span class="badge hw-badge bg-secondary">Abschreibbar</span>
+                                        break;
+
+                                    default:
+                                        <span class="badge hw-badge bg-success">Ausleihbar</span>
+                                        break;
+                                }
+                            </td>
+
+                            <td>@exemplar.Beschädigung</td>
+
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2 flex-wrap">
+
+                                    <a class="btn btn-sm btn-secondary"
+                                       asp-action="Details"
+                                       asp-route-id="@exemplar.ExemplarId">
+                                        Details
+                                    </a>
+
+                                    @if (exemplar.Status == VerleihStatus.Ausleihbar)
+                                    {
+                                        <a class="btn btn-sm btn-success hw-action-btn"
+                                           asp-action="Verleihen"
+                                           asp-route-id="@exemplar.ExemplarId">
+                                            Verleihen
+                                        </a>
+                                    }
+
+                                    @if (exemplar.Status == VerleihStatus.Verliehen)
+                                    {
+                                        <form asp-action="Rueckgabe"
+                                              asp-route-id="@exemplar.ExemplarId"
+                                              method="post"
+                                              class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button class="btn btn-sm btn-dark hw-action-btn" type="submit">
+                                                Rückgabe
+                                            </button>
+                                        </form>
+                                    }
+
+                                    @if (exemplar.Status == VerleihStatus.Überprüfung)
+                                    {
+                                        <a class="btn btn-sm btn-warning hw-action-btn"
+                                           asp-action="Pruefen"
+                                           asp-route-id="@exemplar.ExemplarId">
+                                            Prüfen
+                                        </a>
+                                    }
+
+                                    @if (exemplar.Status == VerleihStatus.Verkaufbar)
+                                    {
+                                        <form asp-action="Verkauft"
+                                              asp-route-id="@exemplar.ExemplarId"
+                                              method="post"
+                                              class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button class="btn btn-sm btn-danger hw-action-btn" type="submit">
+                                                Verkauft
+                                            </button>
+                                        </form>
+                                    }
+
+                                    @if (exemplar.Status == VerleihStatus.Abschreibbar)
+                                    {
+                                        <form asp-action="Abschreiben"
+                                              asp-route-id="@exemplar.ExemplarId"
+                                              method="post"
+                                              class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button class="btn btn-sm btn-outline-danger hw-action-btn" type="submit">
+                                                Abschreiben
+                                            </button>
+                                        </form>
+                                    }
+
+                                    @if (exemplar.Status == VerleihStatus.Verschollen)
+                                    {
+                                        <form asp-action="Rueckgabe"
+                                              asp-route-id="@exemplar.ExemplarId"
+                                              method="post"
+                                              class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button class="btn btn-sm btn-dark hw-action-btn" type="submit">
+                                                Rückgabe
+                                            </button>
+                                        </form>
+                                    }
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

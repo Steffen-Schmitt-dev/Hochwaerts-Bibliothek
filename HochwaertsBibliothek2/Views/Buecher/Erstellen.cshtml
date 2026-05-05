@@ -1,0 +1,61 @@
+﻿@model HochwaertsBibliothek2.Models.Buch
+@{
+    ViewData["Title"] = "Neues Buch";
+}
+
+<h1>Neues Buch erfassen</h1>
+
+<div class="card shadow-sm rounded-4 my-5">
+    <div class="card-body">
+        <form asp-action="Erstellen" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Titel" class="form-label"></label>
+                <input asp-for="Titel" class="form-control" />
+                <span asp-validation-for="Titel" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Autor" class="form-label"></label>
+                <input asp-for="Autor" class="form-control" />
+                <span asp-validation-for="Autor" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Erscheinungsjahr" class="form-label"></label>
+                <input asp-for="Erscheinungsjahr" class="form-control" type="number" />
+                <span asp-validation-for="Erscheinungsjahr" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Isbn" class="form-label"></label>
+                <input asp-for="Isbn" class="form-control" />
+                <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Klappentext" class="form-label"></label>
+                <textarea asp-for="Klappentext" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Klappentext" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Inhalt" class="form-label"></label>
+                <textarea asp-for="Inhalt" class="form-control" rows="6"></textarea>
+                <span asp-validation-for="Inhalt" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" type="submit">Speichern</button>
+                <a class="btn btn-secondary" asp-action="Index">Abbrechen</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

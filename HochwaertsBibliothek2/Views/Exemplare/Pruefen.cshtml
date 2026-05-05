@@ -1,0 +1,53 @@
+﻿@model HochwaertsBibliothek2.Models.Exemplar
+@{
+    ViewData["Title"] = "Buch überprüfen";
+}
+
+<h1>Buch überprüfen</h1>
+
+<p class="text-muted">
+    Buch: <strong>@Model.Buch?.Titel</strong> (Exemplar #@Model.ExemplarId)
+</p>
+
+<div class="card shadow-sm rounded-4">
+    <div class="card-body">
+
+        <form asp-action="Pruefen" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="exemplarId" value="@Model.ExemplarId" />
+
+            <div class="mb-3">
+                <label class="form-label">Neue Beschädigungsstufe</label>
+
+                <select name="neueBeschaedigung" class="form-select">
+                    @foreach (Beschädigungsstufe stufe in Enum.GetValues(typeof(Beschädigungsstufe)))
+                    {
+                        if (stufe == Beschädigungsstufe.Neu)
+                        {
+                            continue;
+                        }
+
+                        <option value="@stufe">@stufe</option>
+                    }
+                </select>
+
+                <div class="form-text">
+                    Bei „Unzureichend“ wird das Exemplar automatisch als „Verkaufbar“ markiert.
+                </div>
+            </div>
+
+            <button class="btn btn-warning" type="submit">
+                Überprüfung abschließen
+            </button>
+
+            <a class="btn btn-secondary"
+               asp-action="Details"
+               asp-route-id="@Model.ExemplarId">
+                Abbrechen
+            </a>
+
+        </form>
+
+    </div>
+</div>

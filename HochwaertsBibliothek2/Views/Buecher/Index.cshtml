@@ -1,0 +1,73 @@
+﻿@model IEnumerable<HochwaertsBibliothek2.Models.Buch>
+
+@{
+    ViewData["Title"] = "Bücher";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Bücher</h1>
+
+    <a class="btn btn-success" asp-action="Erstellen">
+        + Neues Buch
+    </a>
+</div>
+
+<div class="p-4 rounded-4 shadow-sm bg-dark bg-opacity-10 mt-5">
+
+    <div class="card shadow-sm border border-1 rounded-4">
+
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Autor</th>
+                    <th>Jahr</th>
+                    <th>ISBN</th>
+                    <th class="text-end">Aktionen</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var buch in Model)
+                {
+                    <tr>
+                        <td>@buch.Titel</td>
+                        <td>@buch.Autor</td>
+                        <td>@buch.Erscheinungsjahr</td>
+                        <td>@buch.Isbn</td>
+
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-success"
+                               asp-controller="Exemplare"
+                               asp-action="Registrieren"
+                               asp-route-buchId="@buch.BuchId">
+                                + Exemplar
+                            </a>
+
+                            <a class="btn btn-sm btn-secondary"
+                               asp-action="Details"
+                               asp-route-id="@buch.BuchId">
+                                Details
+                            </a>
+
+                            <a class="btn btn-sm btn-warning"
+                               asp-action="Bearbeiten"
+                               asp-route-id="@buch.BuchId">
+                                Bearbeiten
+                            </a>
+
+                            <a class="btn btn-sm btn-danger"
+                               asp-action="Loeschen"
+                               asp-route-id="@buch.BuchId">
+                                Löschen
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

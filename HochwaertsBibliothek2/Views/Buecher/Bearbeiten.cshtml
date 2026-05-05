@@ -1,0 +1,64 @@
+﻿@model HochwaertsBibliothek2.Models.Buch
+
+@{
+    ViewData["Title"] = "Buch bearbeiten";
+}
+
+<h1 class="mb-3">Buch bearbeiten</h1>
+
+<form asp-action="Bearbeiten" method="post"
+      class="card shadow-sm border border-1 rounded-4 p-4">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="BuchId" />
+
+    <div class="mb-3">
+        <label asp-for="Titel" class="form-label"></label>
+        <input asp-for="Titel" class="form-control" />
+        <span asp-validation-for="Titel" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Autor" class="form-label"></label>
+        <input asp-for="Autor" class="form-control" />
+        <span asp-validation-for="Autor" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Erscheinungsjahr" class="form-label"></label>
+        <input asp-for="Erscheinungsjahr" class="form-control" />
+        <span asp-validation-for="Erscheinungsjahr" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Isbn" class="form-label"></label>
+        <input asp-for="Isbn" class="form-control" />
+        <span asp-validation-for="Isbn" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Klappentext" class="form-label"></label>
+        <textarea asp-for="Klappentext" class="form-control" rows="4"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Inhalt" class="form-label"></label>
+        <textarea asp-for="Inhalt" class="form-control" rows="6"></textarea>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-warning">Speichern</button>
+
+        <a asp-action="Details"
+           asp-route-id="@Model.BuchId"
+           class="btn btn-secondary">
+            Abbrechen
+        </a>
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,42 @@
+﻿@model HochwaertsBibliothek2.Models.Exemplar
+@{
+    ViewData["Title"] = "Verleihen";
+}
+
+<h1>Exemplar verleihen</h1>
+
+<div class="card shadow-sm rounded-4">
+    <div class="card-body">
+
+        <p class="mb-1"><strong>Buch:</strong> @Model.Buch?.Titel</p>
+        <p class="mb-3"><strong>Autor:</strong> @Model.Buch?.Autor</p>
+
+        <form asp-action="Verleihen" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="ExemplarId" name="exemplarId" />
+
+            <div class="mb-3">
+                <label class="form-label">Ausleiher</label>
+
+                <input class="form-control" name="ausleiherName" />
+
+                <span class="text-danger">
+                    @Html.ValidationMessage("ausleiherName")
+                </span>
+
+                <div class="form-text">
+                    1. Mahnung ab 30 Tagen nach Ausleihe, dann alle 30 Tage.
+                </div>
+            </div>
+
+            <button class="btn btn-success" type="submit">Verleihen</button>
+
+            <a class="btn btn-secondary"
+               asp-action="Details"
+               asp-route-id="@Model.ExemplarId">
+                Abbrechen
+            </a>
+        </form>
+
+    </div>
+</div>

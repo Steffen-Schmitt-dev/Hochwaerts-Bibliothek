@@ -1,0 +1,124 @@
+﻿@model HochwaertsBibliothek2.Models.Exemplar
+@{
+    ViewData["Title"] = "Exemplar Details";
+}
+
+<h1>Exemplar #@Model.ExemplarId</h1>
+
+<p class="mb-1"><strong>Buch:</strong> @Model.Buch?.Titel</p>
+<p class="mb-1"><strong>Autor:</strong> @Model.Buch?.Autor</p>
+<p class="mb-1"><strong>Status:</strong> @Model.Status</p>
+<p class="mb-3"><strong>Beschädigung:</strong> @Model.Beschädigung</p>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+
+    @if (Model.Status == VerleihStatus.Ausleihbar)
+    {
+        <a class="btn btn-success"
+           asp-action="Verleihen"
+           asp-route-id="@Model.ExemplarId">
+            Verleihen
+        </a>
+    }
+
+    @if (Model.Status == VerleihStatus.Verliehen || Model.Status == VerleihStatus.Verschollen)
+    {
+        <form asp-action="Rueckgabe"
+              asp-route-id="@Model.ExemplarId"
+              method="post">
+            @Html.AntiForgeryToken()
+            <button class="btn btn-secondary" type="submit">
+                Rückgabe
+            </button>
+        </form>
+    }
+
+    @if (Model.Status == VerleihStatus.Überprüfung)
+    {
+        <a class="btn btn-warning"
+           asp-action="Pruefen"
+           asp-route-id="@Model.ExemplarId">
+            Überprüfung durchführen
+        </a>
+    }
+
+    @if (Model.Status == VerleihStatus.Verkaufbar)
+    {
+        <form asp-action="Verkauft"
+              asp-route-id="@Model.ExemplarId"
+              method="post">
+            @Html.AntiForgeryToken()
+            <button class="btn btn-danger" type="submit">
+                Verkauft
+            </button>
+        </form>
+    }
+
+    @if (Model.Status == VerleihStatus.Abschreibbar)
+    {
+        <form asp-action="Abschreiben"
+              asp-route-id="@Model.ExemplarId"
+              method="post">
+            @Html.AntiForgeryToken()
+            <button class="btn btn-outline-danger" type="submit">
+                Abschreiben
+            </button>
+        </form>
+    }
+
+    <a class="btn btn-outline-dark" asp-action="Index">
+        Zur Übersicht
+    </a>
+
+</div>
+
+<h3>Ausleihhistorie</h3>
+
+@if (Model.Ausleihen == null || !Model.Ausleihen.Any())
+{
+    <div class="alert alert-info">Keine Ausleihen vorhanden.</div>
+}
+else
+{
+    <table class="table table-striped bg-white shadow-sm rounded-3 overflow-hidden">
+        <thead class="table-light">
+            <tr>
+                <th>Ausleiher</th>
+                <th>Ausleihdatum</th>
+                <th>1. Mahnung ab</th>
+                <th>Rückgabe</th>
+                <th>Mahnungen</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var a in Model.Ausleihen.OrderByDescending(x => x.AusleihDatum))
+            {
+                <tr>
+                    <td>@a.AusleiherName</td>
+
+                    <td>
+                        @a.AusleihDatum.ToLocalTime().ToString("dd.MM.yyyy")
+                    </td>
+
+                    <td>
+                        @a.AusleihDatum.AddDays(30).ToLocalTime().ToString("dd.MM.yyyy")
+                    </td>
+
+                    <td>
+                        @if (a.RueckgabeDatum == null)
+                        {
+                            <span class="badge bg-primary">Offen</span>
+                        }
+                        else
+                        {
+                            @a.RueckgabeDatum.Value.ToLocalTime().ToString("dd.MM.yyyy")
+                        }
+                    </td>
+
+                    <td>@a.Mahnstufe</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

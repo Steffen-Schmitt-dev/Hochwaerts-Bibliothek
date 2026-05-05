@@ -1,0 +1,25 @@
+﻿@model HochwaertsBibliothek2.Models.Buch
+@{
+    ViewData["Title"] = "Buch löschen";
+}
+
+<h1>Buch löschen</h1>
+
+<div class="alert alert-warning">
+    Willst du dieses Buch wirklich löschen?
+</div>
+
+<div class="card shadow-sm rounded-4 mb-3">
+    <div class="card-body">
+        <p><strong>Titel:</strong> @Model.Titel</p>
+        <p><strong>Autor:</strong> @Model.Autor</p>
+        <p><strong>ISBN:</strong> @Model.Isbn</p>
+    </div>
+</div>
+
+<form asp-action="Loeschen" method="post">
+    <input type="hidden" asp-for="BuchId" />
+
+    <button class="btn btn-danger" type="submit">Ja, löschen</button>
+    <a class="btn btn-secondary" asp-action="Index">Abbrechen</a>
+</form>

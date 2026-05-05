@@ -1,0 +1,116 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* =========================
+   THEME
+   ========================= */
+
+body[data-bs-theme="light"] {
+    background-color: #f5efe3 !important;
+    color: black !important;
+}
+
+    body[data-bs-theme="light"] header {
+        background-color: #caa64d !important;
+    }
+
+        body[data-bs-theme="light"] header .nav-link,
+        body[data-bs-theme="light"] header .navbar-brand {
+            color: black !important;
+        }
+
+body[data-bs-theme="dark"] {
+    background-color: #545454 !important;
+    color: #caa64d !important;
+}
+
+    body[data-bs-theme="dark"] header {
+        background-color: black !important;
+    }
+
+        body[data-bs-theme="dark"] header .nav-link,
+        body[data-bs-theme="dark"] header .navbar-brand {
+            color: #caa64d !important;
+        }
+
+    body[data-bs-theme="dark"] thead {
+        background-color: purple !important;
+        color: yellow !important;
+    }
+
+/* =========================
+   BOOTSTRAP OVERRIDES
+   ========================= */
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* =========================
+   UI COMPONENTS
+   ========================= */
+
+.hw-wappen {
+    height: 42px;
+    width: auto;
+    display: block;
+}
+
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+    .table thead th {
+        font-weight: 600;
+    }
+
+.hw-action-btn {
+    width: 100px;
+}
+
+.hw-badge {
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+    padding: 0.45em 0.75em;
+    font-weight: 500;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+}
+
+/* Cards */
+.card {
+    background-color: #ffffff;
+}
+
+/* Layout spacing */
+.p-4 {
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
