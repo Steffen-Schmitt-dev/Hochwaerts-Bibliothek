@@ -1,4 +1,4 @@
-# Hochwärts Bibliothek
+# Hochwärts-Bibliothek
 
 Eine webbasierte Bibliotheksverwaltung, entstanden im Rahmen meiner Umschulung zum Fachinformatiker für Anwendungsentwicklung.
 
@@ -16,11 +16,11 @@ Dadurch lässt sich jedes Exemplar einzeln verwalten.
 ## Funktionen
 
 - Bücher anlegen, bearbeiten und löschen
-- Exemplare zu Büchern registrieren
-- Bücher verleihen und zurücknehmen
+- Bücher zu Exemplaren registrieren
+- Exemplare verleihen und zurücknehmen
 - automatische Mahnstufen nach 30, 60 und 90 Tagen
 - automatische Markierung als verschollen nach mehrfacher Mahnung
-- nach einem Jahr automatisch als abschreibbar markiert
+- nach einem Jahr verschollen automatisch als abschreibbar markiert
 - Zustandsprüfung nach Rückgabe
 - beschädigte Exemplare werden automatisch als verkaufbar markiert
 - verkaufbare Bücher werden auf der Startseite angezeigt
