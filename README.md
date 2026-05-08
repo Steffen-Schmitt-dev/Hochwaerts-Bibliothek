@@ -1,4 +1,4 @@
-# Hochwärts-Bibliothek
+# Bibliotheksverwaltung der Hochwärts-Bibliothek
 
 Eine webbasierte Bibliotheksverwaltung, entstanden im Rahmen meiner Umschulung zum Fachinformatiker für Anwendungsentwicklung.
 
